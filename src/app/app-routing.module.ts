@@ -1,10 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BaseComponent } from './views/layout/base/base.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+
+  // Redirect empty path to '/home'
+  {path: '', pathMatch : 'full', redirectTo: 'home'},
+
+  // home route
+  {
+    path       : '',
+    component  : BaseComponent,
+    children   : [
+        {path: 'home', loadChildren: () => import('./views/pages/home/home.module').then(m => m.HomeModule)},
+    ]
+  },
+
+  // details route
+  {
+    path       : '',
+    component  : BaseComponent,
+    children   : [
+        {path: 'details', loadChildren: () => import('./views/pages/details/details.module').then(m => m.DetailsModule)},
+    ]
+  },
+
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ scrollPositionRestoration: "top" })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
