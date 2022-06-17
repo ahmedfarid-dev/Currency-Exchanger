@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './views/layout/layout.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { LayoutModule } from './views/layout/layout.module';
     CoreModule,
     // Layout module of your application
     LayoutModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

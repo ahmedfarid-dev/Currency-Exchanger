@@ -1,7 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 @NgModule({
-    imports: []
+    imports: [HttpClientModule]
 })
 export class CoreModule
 {

@@ -1,0 +1,53 @@
+<div class="card mt-4">
+    <div class="card-body">
+      <div class="row">
+          <div class="col-3">
+              <label>Amount</label>
+              <input class="form-control" type="number" [(ngModel)]="currencyExchangeState.amount" style="text-align: center"/>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-4">
+                <label>From</label>
+                <select class="currencyDropdown" [compareWith]="compareCurrencies" name="fromCurrency" id="fromCurrency" [(ngModel)]="currencyExchangeState.fromCurrency" [disabled]="detailsDisplay || currencyExchangeState.amount<1">
+                  <option *ngFor="let currency of currencies" [ngValue]="currency">
+                    {{currency.code}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-4" style="text-align:center;">
+                <img src="./assets/horizontal-flip.svg" style="max-width:25%; cursor: pointer;" (click)="swipeCurrencies()"/>
+              </div>
+              <div class="col-4">
+                <label>To</label>
+                <select class="currencyDropdown" [compareWith]="compareCurrencies" name="toCurrency" id="toCurrency" [(ngModel)]="currencyExchangeState.toCurrency" [disabled]="currencyExchangeState.amount<1">
+                  <option *ngFor="let currency of currencies" [ngValue]="currency">
+                    {{currency.code}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12" style="text-align:center;">
+                <button class="convert-button" type="button" (click)="convertAmount()" [disabled]="currencyExchangeState.amount<1">Convert</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-3">
+            <div class="basic-exchange-rate">
+              <h3>1.00 {{currencyExchangeState.fromCurrency?.code}} = {{convertedAmount}} {{currencyExchangeState.toCurrency?.code}}</h3>
+            </div>
+        </div>
+        <div [ngClass]="!detailsDisplay ? 'col-5' : 'col-9'">
+          <div class="exchange-value">
+            <h3>{{convertedAmountUnit}} {{currencyExchangeState.toCurrency?.code}}</h3>
+          </div>
+        </div>
+        <div class="col-4" *ngIf="!detailsDisplay">
+            <button type="button" class="convert-button" (click)="moveToDetailsPage()" [disabled]="currencyExchangeState.amount<1">More Details</button>
+        </div>
+      </div>
+    </div>
+  </div>

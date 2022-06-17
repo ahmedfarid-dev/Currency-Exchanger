@@ -1,9 +1,20 @@
 <div class="row">
-  <div class="justify-content-between align-items-center flex-wrap grid-margin col-md-2 grid-margin" style="text-align: center;"></div>
-  <div class="justify-content-between align-items-center flex-wrap grid-margin col-md-8 grid-margin" style="text-align: center;">
-    <div>
-      <div>
-        this is home page
+  <div>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2>Currency Exchanger</h2>
+        <div class="row">
+          <div class="col-12">
+            <app-currency-converter [currencyExchangeState]="currencyExchangeState" [detailsDisplay]="false" >
+            </app-currency-converter>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4" *ngFor="let popularCurrency of popularCurrencies; let id = index">
+            <app-popular-currency-exchange [toAmount]="popularCurrency.toAmount"
+            [toCurrency]="popularCurrency.toCurrency" ></app-popular-currency-exchange>
+          </div>
+        </div>
       </div>
     </div>
   </div>
