@@ -8,8 +8,8 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <app-currency-converter 
-            [currencyExchangeState]="currencyExchangeState" [detailsDisplay]="true" >
+            <app-currency-converter [currencyExchangeState]="currencyExchangeState" 
+              [detailsDisplay]="true" (onConvertAmountEvent)="convertAmount()" (onChangeInputsEvent)="resetHistoricalRatesChart()">
             </app-currency-converter>
           </div>
         </div>
@@ -19,7 +19,17 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12" style="text-align:center">
-            <h2>Historical Charts Rate</h2>
+            <h2>Historical Rates Chart</h2>
+            <apx-chart #historicalRatesChart
+            [series]="historicalRatesChartOptions.series"
+            [colors]="historicalRatesChartOptions.colors"
+            [chart]="historicalRatesChartOptions.chart"
+            [markers]="historicalRatesChartOptions.markers"
+            [grid]="historicalRatesChartOptions.grid"
+            [xaxis]="historicalRatesChartOptions.xaxis"
+            [yaxis]="historicalRatesChartOptions.yaxis"
+            [stroke]="historicalRatesChartOptions.stroke"
+            ></apx-chart>
           </div>
         </div>
       </div>

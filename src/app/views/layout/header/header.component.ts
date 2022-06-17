@@ -18,8 +18,10 @@ export class HeaderComponent implements OnInit {
   moveToDetailsPage(fromCurrency:string,toCurrency:string){
     let currencyExchangeState: CurrencyExchangeState = {
       amount: 1,
-      fromCurrency:{ code: "EUR", label:"Euro"},
-      toCurrency:{ code: "USD", label:"United States Dollar"},
+      fromCurrency:{ code: fromCurrency, label:"Euro"},
+      toCurrency:{ code: toCurrency, label:""},
+      convertedAmount:0,
+      convertedAmountUnit:0
     };
     this.router.navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(

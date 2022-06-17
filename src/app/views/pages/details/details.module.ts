@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { DetailsComponent } from "./details.component";
 import { SharedModule } from "src/app/shared/shared.module";
+import { NgApexchartsModule } from "ng-apexcharts";
 
 const routes: Routes = [
   {
@@ -12,6 +13,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [DetailsComponent],
-  imports: [SharedModule ,RouterModule.forChild(routes)],
+  imports: [SharedModule,NgApexchartsModule,RouterModule.forChild(routes)],
 })
 export class DetailsModule {}

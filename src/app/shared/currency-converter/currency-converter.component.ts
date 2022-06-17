@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrencyExchangeState } from 'src/app/models/currencyExchangeState.model';
 import { Currency } from 'src/app/models/symbol.model';
@@ -15,8 +15,14 @@ export class CurrencyConverterComponent implements OnInit {
     amount: 1,
     fromCurrency:{ code: "EUR", label:"Euro"},
     toCurrency:{ code: "USD", label:"United States Dollar"},
+    convertedAmount:0,
+    convertedAmountUnit:0
   };
+
   @Input() detailsDisplay: boolean = false;
+
+  @Output() onConvertAmountEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onChangeInputsEvent : EventEmitter<any> = new EventEmitter<any>();
 
   currencies: Currency[] = [];
   convertedAmount:any;
@@ -45,25 +51,23 @@ export class CurrencyConverterComponent implements OnInit {
     return item?.code === selected?.code;
   }
 
+  resetConvertedAmount(){
+    this.currencyExchangeState.convertedAmount =0;
+    this.currencyExchangeState.convertedAmountUnit =0;
+    this.onChangeInputsEvent.emit({});
+  }
+
   swipeCurrencies(){
     if(!this.detailsDisplay){
       let fromCurrency = this.currencyExchangeState.fromCurrency;
       this.currencyExchangeState.fromCurrency = this.currencyExchangeState.toCurrency;
       this.currencyExchangeState.toCurrency = fromCurrency;
+      this.onConvertAmountEvent.emit({});
     }
   }
 
   convertAmount(){
-    this.currencyExchangeService.convert(
-      this.currencyExchangeState.amount,
-      this.currencyExchangeState.fromCurrency.code,
-      this.currencyExchangeState.toCurrency.code).subscribe({
-      next: (data) => {
-        this.convertedAmount = data.result;
-        this.convertedAmountUnit = this.convertedAmount/this.currencyExchangeState.amount
-      },
-      error: (e) => console.error(e),
-    });
+    this.onConvertAmountEvent.emit({});
   }
 
   moveToDetailsPage(){
