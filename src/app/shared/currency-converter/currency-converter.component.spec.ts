@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { CurrencyConverterComponent } from './currency-converter.component';
 
@@ -8,9 +8,8 @@ describe('CurrencyConverterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrencyConverterComponent ]
-    })
-    .compileComponents();
+      declarations: [CurrencyConverterComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

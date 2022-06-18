@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-12">
             <app-currency-converter [currencyExchangeState]="currencyExchangeState" 
-              [detailsDisplay]="false" (onConvertAmountEvent)="convertAmount()" (onChangeInputsEvent)="resetPopularCurrencies()" >
+              [detailsDisplay]="false" (convertAmountEvent)="convertAmount()" (changeInputsEvent)="resetPopularCurrencies()" >
             </app-currency-converter>
           </div>
         </div>
