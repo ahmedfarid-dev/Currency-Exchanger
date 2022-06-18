@@ -46,7 +46,24 @@ export class CurrencyExchangeService {
   }
 
   getHistoricalRate(date: string, base: string, symbol: string) {
-    const url = `${environment.baseURL}${constants.API.GET_HISTORICAL_RATE}${date}?base =${base}&symbols=${symbol}`;
+    const url = `${environment.baseURL}${constants.API.GET_HISTORICAL_RATE}${date}?base=${base}&symbols=${symbol}`;
+
+    let headers = new HttpHeaders({
+      apiKey: environment.apiKey
+    });
+    let options = { headers: headers };
+    return this.http.get(url, options).pipe(
+      map((res: any) => {
+        return res;
+      }),
+      catchError((errorRes) => {
+        return throwError(errorRes);
+      })
+    );
+  }
+
+  getLatestRates(base: string, symbols: string) {
+    const url = `${environment.baseURL}${constants.API.GET_LATEST_RATES}?base=${base}&symbols=${symbols}`;
 
     let headers = new HttpHeaders({
       apiKey: environment.apiKey

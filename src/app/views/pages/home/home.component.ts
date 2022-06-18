@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+//import { Observable, forkJoin } from 'rxjs';
 import { CurrencyExchangeService } from 'src/app/services/currency-exchange.service';
 import { CurrencyExchangeState } from 'src/app/models/currencyExchangeState.model';
 
@@ -69,22 +69,38 @@ export class HomeComponent implements OnInit {
   }
 
   updatePopularCurrencies() {
-    let observableBatch: Observable<any>[] = [];
-
-    this.popularCurrencies.forEach((popularCurrency) => {
-      observableBatch.push(
-        this.currencyExchangeService.convert(
-          this.currencyExchangeState.amount,
-          this.currencyExchangeState.fromCurrency.code,
-          popularCurrency.toCurrency
-        )
-      );
-    });
-
-    forkJoin(observableBatch).subscribe((results: any[]) => {
-      this.popularCurrencies.forEach((popularCurrency, i) => {
-        popularCurrency.convertedAmount = results[i].result;
+    this.currencyExchangeService
+      .getLatestRates(
+        this.currencyExchangeState.fromCurrency.code,
+        'USD,EUR,JPY,GBP,AUD,CAD,CHF,AED,HKD'
+      )
+      .subscribe({
+        next: (data) => {
+          this.popularCurrencies.forEach((popularCurrency) => {
+            popularCurrency.convertedAmount =
+              data.rates[popularCurrency.toCurrency] *
+              this.currencyExchangeState.amount;
+          });
+        },
+        error: (e) => console.error(e)
       });
-    });
+
+    // let observableBatch: Observable<any>[] = [];
+
+    // this.popularCurrencies.forEach((popularCurrency) => {
+    //   observableBatch.push(
+    //     this.currencyExchangeService.convert(
+    //       this.currencyExchangeState.amount,
+    //       this.currencyExchangeState.fromCurrency.code,
+    //       popularCurrency.toCurrency
+    //     )
+    //   );
+    // });
+
+    // forkJoin(observableBatch).subscribe((results: any[]) => {
+    //   this.popularCurrencies.forEach((popularCurrency, i) => {
+    //     popularCurrency.convertedAmount = results[i].result;
+    //   });
+    // });
   }
 }
